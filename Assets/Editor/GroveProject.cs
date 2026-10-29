@@ -16,15 +16,19 @@ namespace GroveSurvivor.Editor
             EditorApplication.delayCall += () =>
             {
                 if (EditorApplication.isPlayingOrWillChangePlaymode) return;
-                EnsureMaterial();
-                PlayerSettings.companyName = "Roman";
-                PlayerSettings.productName = "Сумрачный лес";
-                PlayerSettings.defaultScreenWidth = 1600;
-                PlayerSettings.defaultScreenHeight = 900;
-                PlayerSettings.fullScreenMode = FullScreenMode.FullScreenWindow;
-                PlayerSettings.runInBackground = false;
-                EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(Scene, true) };
+                ConfigureSettings();
             };
+        }
+        static void ConfigureSettings()
+        {
+            EnsureMaterial();
+            PlayerSettings.companyName = "Roman";
+            PlayerSettings.productName = "Сумрачный лес";
+            PlayerSettings.defaultScreenWidth = 1600;
+            PlayerSettings.defaultScreenHeight = 900;
+            PlayerSettings.fullScreenMode = FullScreenMode.FullScreenWindow;
+            PlayerSettings.runInBackground = false;
+            EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(Scene, true) };
         }
         // A Resources material preserves the runtime-generated art's shader in player builds.
         static void EnsureMaterial()
@@ -45,7 +49,7 @@ namespace GroveSurvivor.Editor
         [MenuItem("Grove Survivor/Собрать Windows x64")]
         public static void BuildWindows()
         {
-            EnsureMaterial();
+            ConfigureSettings();
             Directory.CreateDirectory("Builds/Windows");
             var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions {
                 scenes = new[] { Scene }, locationPathName = "Builds/Windows/GroveSurvivor.exe",
